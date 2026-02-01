@@ -123,3 +123,27 @@ function plotGraph(expr) {
   ctx.strokeStyle = "#00ff00";
   ctx.stroke();
 }
+function solveArithmeticSteps(expr) {
+  try {
+    print(`Solving: ${expr}`);
+    // parse simple + - * /
+    let result = math.evaluate(expr);
+    print(`Result: ${result}`);
+    print(`Step-by-step:`);
+
+    // Use math.js simplify
+    const steps = expr.split(/([\+\-\*\/])/);
+    let current = Number(steps[0]);
+    for (let i=1; i<steps.length; i+=2) {
+      const op = steps[i];
+      const val = Number(steps[i+1]);
+      if(op==="+") current += val;
+      if(op==="-") current -= val;
+      if(op==="*") current *= val;
+      if(op==="/") current /= val;
+      print(`${steps.slice(0,i+2).join(' ')} = ${current}`);
+    }
+  } catch {
+    print("Cannot solve arithmetic problem.");
+  }
+}
